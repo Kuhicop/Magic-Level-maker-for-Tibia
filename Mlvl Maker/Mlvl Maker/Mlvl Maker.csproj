@@ -74,9 +74,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="SpellCaster.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="MagicLevelMakerView.xaml.cs">
       <DependentUpon>MagicLevelMakerView.xaml</DependentUpon>
     </Compile>

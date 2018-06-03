@@ -5,7 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mlvl_Maker"
         mc:Ignorable="d"
-        Height="400" Width="350" Background="#FF161616">
+        Height="400" Width="400" Background="#FF161616">
+
+    <Window.Resources>
+        
+        <!-- Label Style -->
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- RadioButton style -->
+        <Style TargetType="RadioButton">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        
+        <!-- ToggleButton for bindkeys style -->
+        <Style TargetType="ToggleButton" x:Key="Hotkey">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="65"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontStyle" Value="Italic"/>            
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Name="border"
+                                BorderThickness="2"
+                                BorderBrush="#FF666666"
+                                CornerRadius="6"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Red"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush  EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFDDDDDD" Offset="0.79"/>
+                                <GradientStop Color="Red" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="False">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush  EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFDDDDDD" Offset="0.79"/>
+                                <GradientStop Color="#FFDDDDDD" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>        
+        
+    </Window.Resources>
+    
+    <!-- Main Grid -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.3*"/>
@@ -21,7 +90,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Label Content="Vocation: " Grid.Row="1" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            <Label Content="Vocation: " Grid.Row="1" Margin="20,0,0,0"/>
             <RadioButton x:Name="MagicalVocation" Content="Magical vocation" Grid.Row="2" VerticalAlignment="Center" Margin="40,0,0,0" IsChecked="True"/>
             <RadioButton x:Name="PaladinVocation" Content="Paladin" Grid.Row="3" VerticalAlignment="Center" Margin="40,0,0,0"/>
             <Rectangle Fill="Red" Height="3" Grid.Row="3" Stroke="Red" StrokeThickness="5" VerticalAlignment="Bottom" Margin="0,0,0,-5.767"/>
@@ -36,11 +105,33 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <RadioButton x:Name="SelectedUMP" Content="Ultimate Mana Potion" VerticalAlignment="Center" Margin="20,0,0,0"/>
-            <RadioButton x:Name="SelectedGMP" Content="Great Mana Potion" VerticalAlignment="Center" Margin="20,0,0,0" Grid.Row="1"/>
-            <RadioButton x:Name="SelectedSMP" Content="Strong Mana Potion" VerticalAlignment="Center" Margin="20,0,0,0" Grid.Row="2"/>
+            <RadioButton x:Name="SelectedUMP" IsEnabled="{Binding Path=UMPIsAvailable, Mode=OneWay}" Content="Ultimate Mana Potion" Margin="20,0,0,0"/>
+            <RadioButton x:Name="SelectedGMP" IsEnabled="{Binding Path=GMPIsAvailable, Mode=OneWay}" Content="Great Mana Potion" Margin="20,0,0,0" Grid.Row="1"/>
+            <RadioButton x:Name="SelectedSMP" IsChecked="{Binding Path=SMPIsChecked, Mode=TwoWay}" Content="Strong Mana Potion" Margin="20,0,0,0" Grid.Row="2"/>
+
+            <!-- Potion Hotkey -->
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                <ToggleButton x:Name="PotionHotkey" Content="{Binding Path=potionHotkeyName, Mode=OneWay}" IsChecked="{Binding Path=potionHotkeyIsChecked, Mode=TwoWay}" Style="{StaticResource Hotkey}" />
+                <Separator Width="10" Visibility="Hidden"/>
+                <Label Content="Potion hotkey"/>
+            </StackPanel>
+
+            <!-- First spell Hotkey -->
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
+                <ToggleButton x:Name="FirstSpellHotkey" Content="{Binding Path=firstSpellHotkeyName, Mode=OneWay}" IsChecked="{Binding Path=firstSpellHotkeyIsChecked, Mode=TwoWay}" Style="{StaticResource Hotkey}" />
+                <Separator Width="10" Visibility="Hidden"/>
+                <Label x:Name="firstSpellName"/>
+            </StackPanel>
+
+            <!-- Second spell hotkey -->
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
+                <ToggleButton x:Name="SecondSpellHotkey" Content="{Binding Path=secondSpellHotkeyName, Mode=OneWay}" IsChecked="{Binding Path=secondSpellHotkeyIsChecked, Mode=TwoWay}" Style="{StaticResource Hotkey}" />
+                <Separator Width="10" Visibility="Hidden"/>
+                <Label x:Name="secondSpellName"/>
+            </StackPanel>            
 
         </Grid>
 

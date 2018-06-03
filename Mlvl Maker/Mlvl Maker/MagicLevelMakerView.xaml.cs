@@ -22,6 +22,18 @@ namespace Mlvl_Maker
         public MagicLevelMakerView()
         {
             InitializeComponent();
+            KeyDown += KeyPress;
         }
+
+        public static BindingKeyName SendKey;
+
+        private void KeyPress(object sender, KeyEventArgs e)
+        {
+            string _name = e.Key.ToString();
+            int _virtualKeyValue = KeyInterop.VirtualKeyFromKey(e.Key);
+            SendKey(_name, _virtualKeyValue);
+        }
+
+
     }
 }
