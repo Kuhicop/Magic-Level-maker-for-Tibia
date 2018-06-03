@@ -23,12 +23,16 @@ namespace Mlvl_Maker
         private int _firstSpellKey;
         private int _secondSpellKey;
 
+        private POINT _placeInBackpack;
+        private POINT _placeWithPotions;
+        private POINT _placeToDrop;
+
 
 
 
         private void SelectedPotion(Enums.PotionType kindOfPotion)
         {
-            _selectedPotion = kindOfPotion;
+            _selectedPotion = kindOfPotion;            
         }
 
 
