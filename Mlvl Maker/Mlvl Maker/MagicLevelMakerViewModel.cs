@@ -11,6 +11,7 @@ namespace Mlvl_Maker
     public delegate void BindingKeyName(string keyName, int keyValue);
     public delegate void BindingKey(int keyValue, Enums.Hotkey key);
     public delegate void ChosedPotion(Enums.PotionType kindOfPotion);
+    public delegate void SetCoordinate(POINT place, Enums.Place kindOfPlace);
 
 
     public class MagicLevelMakerViewModel : Screen
@@ -22,12 +23,14 @@ namespace Mlvl_Maker
             this.DisplayName = "Magic Level Maker";
             MagicLevelMakerView.SendKey += SetHotkey;
             SpellCaster = new SpellCaster();
+            _manager = new WindowManager();
             MagicalVocation();           
             
         }
 
 
         SpellCaster SpellCaster;
+        WindowManager _manager;
         
         private Enums.Vocation _selectedVocation { get; set; }
         private Enums.Hotkey _selectedHotkey { get; set; }
@@ -183,7 +186,11 @@ namespace Mlvl_Maker
         #endregion
         
 
-
+        /// <summary>
+        /// Setting text to button content & sending virtual key value to SpellCaster
+        /// </summary>
+        /// <param name="keyName"> Button content </param>
+        /// <param name="keyValue"> Virtual key value </param>
         private void SetHotkey(string keyName, int keyValue)
         {
             if(_bindKeyAllow)
@@ -214,7 +221,9 @@ namespace Mlvl_Maker
 
 
 
-
+        /// <summary>
+        /// Selecting settings for mage
+        /// </summary>
         public void MagicalVocation()
         {
             firstSpellName = "Utana Vid";
@@ -224,6 +233,9 @@ namespace Mlvl_Maker
             _selectedVocation = Enums.Vocation.Magical;
         }
 
+        /// <summary>
+        /// Selecting settings for paladin
+        /// </summary>
         public void PaladinVocation()
         {
             firstSpellName = "Exura Gran San";
@@ -234,6 +246,17 @@ namespace Mlvl_Maker
             SelectedSMP();
             _selectedVocation = Enums.Vocation.Paladin;
         }
+
+
+        public void SetMouseCoordinates()
+        {
+            _manager.ShowWindow(new CoordinateSelectionViewModel());
+        }
+
+
+
+
+
 
         /// <summary>
         /// Reaction for click radiobutton "Ultimate Mana Potion"

@@ -40,7 +40,16 @@ namespace Mlvl_Maker
 
         }
 
-
+        /// <summary>
+        /// Getting current cursor position
+        /// </summary>
+        /// <returns> Position as POINT </returns>
+        public static POINT GetCurrentCursorPosition()
+        {
+            POINT _lpPoint;
+            GetCursorPos(out _lpPoint);
+            return _lpPoint;
+        }
 
     }
 }

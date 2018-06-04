@@ -24,6 +24,13 @@ namespace Mlvl_Maker
             secondSpell,
         }
 
+        public enum Place
+        {
+            backpack,
+            vialStack,
+            potionStack,
+        }
+
 
     }
 }

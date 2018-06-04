@@ -14,6 +14,7 @@ namespace Mlvl_Maker
         {
             MagicLevelMakerViewModel.SelectPotion += SelectedPotion;
             MagicLevelMakerViewModel.SendAssignedKeyValue += AssignKeyValue;
+            CoordinateSelectionViewModel.SendCoordinate += SetCoordinates;
         }
 
 
@@ -28,7 +29,23 @@ namespace Mlvl_Maker
         private POINT _placeToDrop;
 
 
+        private void SetCoordinates(POINT point, Enums.Place selectedPlace)
+        {
+            switch(selectedPlace)
+            {
+                case Enums.Place.backpack:
+                    _placeInBackpack = point;
+                    break;
 
+                case Enums.Place.potionStack:
+                    _placeWithPotions = point;
+                    break;
+
+                case Enums.Place.vialStack:
+                    _placeToDrop = point;
+                    break;
+            }
+        }
 
         private void SelectedPotion(Enums.PotionType kindOfPotion)
         {
