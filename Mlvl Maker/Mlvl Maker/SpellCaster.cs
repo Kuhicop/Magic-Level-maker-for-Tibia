@@ -29,6 +29,11 @@ namespace Mlvl_Maker
         private POINT _placeToDrop;
 
 
+        /// <summary>
+        /// Setting user defined coordinates on screen to be able drag&drop stacks
+        /// </summary>
+        /// <param name="point"> Point on screen </param>
+        /// <param name="selectedPlace"> Kind of selected place </param>
         private void SetCoordinates(POINT point, Enums.Place selectedPlace)
         {
             switch(selectedPlace)
@@ -47,13 +52,21 @@ namespace Mlvl_Maker
             }
         }
 
+        /// <summary>
+        /// Set user defined kind of potion for engine work
+        /// </summary>
+        /// <param name="kindOfPotion"> Selected potion type </param>
         private void SelectedPotion(Enums.PotionType kindOfPotion)
         {
             _selectedPotion = kindOfPotion;            
         }
 
 
-
+        /// <summary>
+        /// Setting Virtual keys to use in engine for cast spells and drink potions
+        /// </summary>
+        /// <param name="keyValue"> Virtual key value </param>
+        /// <param name="key"> Kind of key in app </param>
         private void AssignKeyValue(int keyValue, Enums.Hotkey key)
         {
             switch(key)

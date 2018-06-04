@@ -10,6 +10,10 @@ namespace Mlvl_Maker
         [DllImport("user32.dll")]
         public static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
 
+        /// <summary>
+        /// Virtual press key
+        /// </summary>
+        /// <param name="keyValue"> Virtual key state </param>
         public static void PressKey(int keyValue)
         {
             byte _key = Convert.ToByte(keyValue);
