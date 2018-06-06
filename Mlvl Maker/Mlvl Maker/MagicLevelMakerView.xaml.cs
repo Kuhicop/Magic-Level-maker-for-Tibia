@@ -26,6 +26,7 @@ namespace Mlvl_Maker
         }
 
         public static BindingKeyName SendKey;
+        public static BotStatusChanged ClosingApp;
 
         private void KeyPress(object sender, KeyEventArgs e)
         {
@@ -34,6 +35,9 @@ namespace Mlvl_Maker
             SendKey(_name, _virtualKeyValue);
         }
 
-
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ClosingApp(false);
+        }
     }
 }

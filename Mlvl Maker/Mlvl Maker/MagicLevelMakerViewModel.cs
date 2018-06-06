@@ -21,10 +21,16 @@ namespace Mlvl_Maker
         public MagicLevelMakerViewModel()
         {
             this.DisplayName = "Magic Level Maker";
+            switchTextStatus = "Turn ON";
             MagicLevelMakerView.SendKey += SetHotkey;
+            SpellCaster.SendValue += UpdatePotions;
             SpellCaster = new SpellCaster();
             _manager = new WindowManager();
-            MagicalVocation();           
+            MagicalVocation();
+            _botIsRunning = false;
+            potionsInBackpack = 0.ToString();
+            potionsOutside = 0.ToString();
+
             
         }
 
@@ -36,12 +42,54 @@ namespace Mlvl_Maker
         private Enums.Hotkey _selectedHotkey { get; set; }
 
         private bool _bindKeyAllow { get; set; }
+        private bool _botIsRunning { get; set; }
 
         public static ChosedPotion SelectPotion;
         public static BindingKey SendAssignedKeyValue;
+        public static ActualPotions SendAvailablePotions;
+        public static BotStatusChanged BotStatus;
 
 
         #region Bindings
+
+        private string _switchTextStatus;
+        public string switchTextStatus
+        {
+            get { return _switchTextStatus; }
+            private set
+            {
+                _switchTextStatus = value;
+                NotifyOfPropertyChange("switchTextStatus");
+            }
+        }
+
+
+        private string _potionsInBackpack;
+        public string potionsInBackpack
+        {
+            get { return _potionsInBackpack; }
+            set
+            {                
+                    _potionsInBackpack = value;
+                    NotifyOfPropertyChange("potionsInBackpack");
+                                
+            }
+        }
+
+        private string _potionsOutside;
+        public string potionsOutside
+        {
+            get { return _potionsOutside; }
+            set
+            {
+                
+                    _potionsOutside = value;
+                    NotifyOfPropertyChange("potionsOutside");
+                                
+            }
+        }
+
+
 
         private string _firstSpellName;
         public string firstSpellName
@@ -185,6 +233,51 @@ namespace Mlvl_Maker
 
         #endregion
         
+
+        public void SwitchBot()
+        {
+            if(!_botIsRunning)
+            {
+                _botIsRunning = true;
+                switchTextStatus = "Turn OFF";
+                SendAvailablePotions(Enums.Place.backpack, Convert.ToInt32(potionsInBackpack));
+                SendAvailablePotions(Enums.Place.potionStack, Convert.ToInt32(potionsOutside));
+                BotStatus(_botIsRunning);
+            }
+
+            else
+            {
+                _botIsRunning = false;
+                switchTextStatus = "Turn ON";
+                BotStatus(_botIsRunning);
+            }
+
+        }
+
+
+
+        /// <summary>
+        /// Update potions count in app window while bot is running
+        /// </summary>
+        /// <param name="place"> Place of potions </param>
+        /// <param name="potions"> Amount of potions </param>
+        private void UpdatePotions(Enums.Place place, int potions)
+        {
+            string _potions = potions.ToString();
+            switch(place)
+            {
+                case Enums.Place.backpack:
+                    potionsInBackpack = _potions;
+                    break;
+
+                case Enums.Place.potionStack:
+                    potionsOutside = _potions;
+                    break;
+            }
+
+        }
+
+
 
         /// <summary>
         /// Setting text to button content & sending virtual key value to SpellCaster

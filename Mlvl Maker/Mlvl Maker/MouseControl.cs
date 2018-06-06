@@ -28,15 +28,19 @@ namespace Mlvl_Maker
         public static void MoveStack(POINT destination, POINT place)
         {
             SetCursorPos(place.X, place.Y);
-            Thread.Sleep(5);
+            Thread.Sleep(35);
             mouse_event(0x002, 0, 0, 0, (IntPtr)0);
-            Thread.Sleep(15);
+            Thread.Sleep(25);
             SetCursorPos(place.X + 2, place.Y + 2);
-            Thread.Sleep(5);
-            SetCursorPos(destination.X, destination.Y);
             Thread.Sleep(15);
+            SetCursorPos(place.X + 5, place.Y + 5);
+            Thread.Sleep(15);
+            SetCursorPos(place.X + 15, place.Y + 15);
+            Thread.Sleep(15);
+            SetCursorPos(destination.X, destination.Y);
+            Thread.Sleep(25);
             mouse_event(0x004, 0, 0, 0, (IntPtr)0);
-            Thread.Sleep(5);           
+            Thread.Sleep(75);           
 
         }
 

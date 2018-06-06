@@ -82,6 +82,7 @@
     <Compile Include="MouseControl.cs" />
     <Compile Include="Randomization.cs" />
     <Compile Include="SpellCaster.cs" />
+    <Compile Include="WindowStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />

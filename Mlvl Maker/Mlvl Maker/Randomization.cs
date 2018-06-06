@@ -12,7 +12,7 @@ namespace Mlvl_Maker
         public static int GenerateKeyDelay()
         {
             Random _random = new Random();
-            return _random.Next(20, 40);
+            return _random.Next(15, 25);
         } 
 
         /// <summary>
