@@ -47,8 +47,7 @@ namespace Mlvl_Maker
         }
 
         private void StatusCheckerTick(object sender, EventArgs e)
-        {
-            
+        {            
             TopMostStatus(CheckTibiaStatus());
         }
 

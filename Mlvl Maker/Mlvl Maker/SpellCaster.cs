@@ -42,6 +42,7 @@ namespace Mlvl_Maker
         private int _potionKey { get; set; }
         private int _firstSpellKey { get; set; }
         private int _secondSpellKey { get; set; }
+        private int _loopCounter { get; set; }
 
         private POINT _placeInBackpack { get; set; }
         private POINT _placeWithPotions { get; set; }
@@ -152,6 +153,8 @@ namespace Mlvl_Maker
 
         private void MakeBurningLoop()
         {
+            _loopCounter = 0;
+
             while(_IsEnabled && PotionsCheck())
             {
                 Thread.Sleep(5);
@@ -177,7 +180,9 @@ namespace Mlvl_Maker
                                     SendValue(Enums.Place.backpack, _potionsInBackpack);
                                     Thread.Sleep(Randomization.GenerateWait());
                                     KeyboardControl.PressKey(_firstSpellKey);
-                                    Thread.Sleep(Randomization.GenerateWait());
+                                    _loopCounter += 5;
+                                    CastSecondSpell();
+                                    Thread.Sleep(Randomization.GenerateWait());                                    
                                     break;
 
                                 case Enums.PotionType.GMP:
@@ -189,7 +194,10 @@ namespace Mlvl_Maker
                                     _potionsInBackpack--;
                                     SendValue(Enums.Place.backpack, _potionsInBackpack);
                                     KeyboardControl.PressKey(_firstSpellKey);
+                                    _loopCounter += 2;
+                                    CastSecondSpell();
                                     Thread.Sleep(Randomization.GenerateWait());
+                                    
                                     break;
 
                                 case Enums.PotionType.SMP:
@@ -231,7 +239,18 @@ namespace Mlvl_Maker
                
         }
 
-        
+
+        /// <summary>
+        /// Burn rest of mana
+        /// </summary>
+        private void CastSecondSpell()
+        {
+            if(_loopCounter == 10)
+            {
+                KeyboardControl.PressKey(_secondSpellKey);
+                _loopCounter = 0;
+            }
+        }
 
         /// <summary>
         /// Setting user defined coordinates on screen to be able drag&drop stacks

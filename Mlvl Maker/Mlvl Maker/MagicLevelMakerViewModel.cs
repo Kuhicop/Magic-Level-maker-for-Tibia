@@ -12,6 +12,7 @@ namespace Mlvl_Maker
     public delegate void BindingKey(int keyValue, Enums.Hotkey key);
     public delegate void ChosedPotion(Enums.PotionType kindOfPotion);
     public delegate void SetCoordinate(POINT place, Enums.Place kindOfPlace);
+    public delegate void CloseSupplyWindow();
 
 
     public class MagicLevelMakerViewModel : Screen
@@ -24,6 +25,7 @@ namespace Mlvl_Maker
             switchTextStatus = "Turn ON";
             MagicLevelMakerView.SendKey += SetHotkey;
             SpellCaster.SendValue += UpdatePotions;
+            CloseSupplyWindow += DoNothing;
             SpellCaster = new SpellCaster();
             _manager = new WindowManager();
             MagicalVocation();
@@ -34,7 +36,7 @@ namespace Mlvl_Maker
             
         }
 
-
+        public static CloseSupplyWindow CloseSupplyWindow;
         SpellCaster SpellCaster;
         WindowManager _manager;
         
@@ -232,7 +234,18 @@ namespace Mlvl_Maker
         }
 
         #endregion
-        
+
+
+        protected override void OnDeactivate(bool close)
+        {
+            CloseSupplyWindow();
+        }
+
+        private void DoNothing()
+        {
+
+        }
+
 
         public void SwitchBot()
         {
@@ -243,6 +256,7 @@ namespace Mlvl_Maker
                 SendAvailablePotions(Enums.Place.backpack, Convert.ToInt32(potionsInBackpack));
                 SendAvailablePotions(Enums.Place.potionStack, Convert.ToInt32(potionsOutside));
                 BotStatus(_botIsRunning);
+                _manager.ShowWindow(new SupplyViewModel());
             }
 
             else
@@ -250,6 +264,7 @@ namespace Mlvl_Maker
                 _botIsRunning = false;
                 switchTextStatus = "Turn ON";
                 BotStatus(_botIsRunning);
+                CloseSupplyWindow();
             }
 
         }

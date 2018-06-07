@@ -82,6 +82,10 @@
     <Compile Include="MouseControl.cs" />
     <Compile Include="Randomization.cs" />
     <Compile Include="SpellCaster.cs" />
+    <Compile Include="SupplyView.xaml.cs">
+      <DependentUpon>SupplyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SupplyViewModel.cs" />
     <Compile Include="WindowStatus.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +128,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MagicLevelMakerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SupplyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
