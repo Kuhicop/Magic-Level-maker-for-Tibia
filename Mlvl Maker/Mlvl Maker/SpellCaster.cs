@@ -149,8 +149,7 @@ namespace Mlvl_Maker
         /// </summary>
         private void TakeNewStack()
         {
-            MouseControl.MoveStack(_placeToDrop, _placeInBackpack);
-            Thread.Sleep(20);
+            MouseControl.MoveStack(_placeToDrop, _placeInBackpack);            
             MouseControl.MoveStack(_placeInBackpack, _placeWithPotions);
         }
 
@@ -164,9 +163,7 @@ namespace Mlvl_Maker
 
             while(_IsEnabled && PotionsCheck())
             {
-                Thread.Sleep(5);
-                _IsLoopActivated = false;
-
+                 
                 if(_IsGameTopMost)
                 {
                     if (_selectedVocation == Enums.Vocation.Magical)
@@ -189,13 +186,16 @@ namespace Mlvl_Maker
                                 _potionsInBackpack--;
                                 SendValue(Enums.Place.backpack, _potionsInBackpack);
                                 Thread.Sleep(Randomization.GenerateWait());
+
                                 KeyboardControl.PressKey(_potionKey);
                                 _potionsInBackpack--;
                                 SendValue(Enums.Place.backpack, _potionsInBackpack);
-                                KeyboardControl.PressKey(_firstSpellKey);
-                                _loopCounter += 2;
-                                CastSecondSpell();
                                 Thread.Sleep(Randomization.GenerateWait());
+
+                                KeyboardControl.PressKey(_firstSpellKey);
+                                _loopCounter += 1;
+                                CastSecondSpell();
+                                
 
                                 break;
 
@@ -204,15 +204,17 @@ namespace Mlvl_Maker
                                 _potionsInBackpack--;
                                 SendValue(Enums.Place.backpack, _potionsInBackpack);
                                 Thread.Sleep(Randomization.GenerateWait());
+
                                 KeyboardControl.PressKey(_potionKey);
                                 _potionsInBackpack--;
                                 SendValue(Enums.Place.backpack, _potionsInBackpack);
                                 Thread.Sleep(Randomization.GenerateWait());
+
                                 KeyboardControl.PressKey(_potionKey);
                                 _potionsInBackpack--;
                                 SendValue(Enums.Place.backpack, _potionsInBackpack);
-                                KeyboardControl.PressKey(_firstSpellKey);
                                 Thread.Sleep(Randomization.GenerateWait());
+                                KeyboardControl.PressKey(_firstSpellKey);                                
                                 break;
                         }
                     }
@@ -223,12 +225,15 @@ namespace Mlvl_Maker
                         _potionsInBackpack--;
                         SendValue(Enums.Place.backpack, _potionsInBackpack);
                         Thread.Sleep(Randomization.GenerateWait());
+
                         KeyboardControl.PressKey(_potionKey);
                         _potionsInBackpack--;
                         SendValue(Enums.Place.backpack, _potionsInBackpack);
+                        Thread.Sleep(Randomization.GenerateWait());
+
                         KeyboardControl.PressKey(_firstSpellKey);
                         KeyboardControl.PressKey(_secondSpellKey);
-                        Thread.Sleep(Randomization.GenerateWait());
+                        
                     }
                     
                 }

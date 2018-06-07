@@ -40,7 +40,7 @@ namespace Mlvl_Maker
             SetCursorPos(destination.X, destination.Y);
             Thread.Sleep(25);
             mouse_event(0x004, 0, 0, 0, (IntPtr)0);
-            Thread.Sleep(75);           
+            Thread.Sleep(150);           
 
         }
 

@@ -20,6 +20,7 @@ namespace Mlvl_Maker
             keybd_event(_key, 0, 0, 0);
             Thread.Sleep(Randomization.GenerateKeyDelay());
             keybd_event(_key, 0, 0x0002, 0);
+            Thread.Sleep(Randomization.GenerateKeyDelay());
         }
 
     }
