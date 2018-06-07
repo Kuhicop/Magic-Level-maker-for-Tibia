@@ -21,7 +21,7 @@ namespace Mlvl_Maker
 
         public MagicLevelMakerViewModel()
         {
-            this.DisplayName = "Magic Level Maker";
+            this.DisplayName = "Magic Level Trainer";
             switchTextStatus = "Turn ON";
             MagicLevelMakerView.SendKey += SetHotkey;
             SpellCaster.SendValue += UpdatePotions;
