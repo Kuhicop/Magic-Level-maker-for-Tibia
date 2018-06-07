@@ -29,7 +29,7 @@ namespace Mlvl_Maker
 
         }
 
-        Thread loopThread = null;
+        
         Thread loop;
 
         WindowStatus WindowStatus;
@@ -56,7 +56,11 @@ namespace Mlvl_Maker
         private bool _IsLoopActivated { get; set; }
 
 
-
+        /// <summary>
+        /// Getting defined by user available potions
+        /// </summary>
+        /// <param name="place"> Where potions are </param>
+        /// <param name="potions"> Amount </param>
         private void SetAvailablePotions(Enums.Place place, int potions)
         {
             switch(place)
@@ -71,7 +75,10 @@ namespace Mlvl_Maker
             }
         }
 
-
+        /// <summary>
+        /// Turning on/off MakeBurningLoop
+        /// </summary>
+        /// <param name="state"></param>
         private void ToggleBot(bool state)
         {            
             if (state)
@@ -89,15 +96,12 @@ namespace Mlvl_Maker
             }
         }
 
-        
+        /// <summary>
+        /// Assign value of game statement for properly working 
+        /// </summary>
+        /// <param name="state">  </param>
         private void IsGameTopMost(bool state)
-        {
-            //if (!state && _IsLoopActivated)
-                //thread.Abort();
-               // loopThread.Suspend();
-            //if (state && _IsLoopActivated && !_IsGameTopMost)
-                //loopThread.Resume();
-                
+        {   
             _IsGameTopMost = state;
         }
 
@@ -150,7 +154,9 @@ namespace Mlvl_Maker
         }
 
        
-
+        /// <summary>
+        /// Drinking potions & burning mana loop
+        /// </summary>
         private void MakeBurningLoop()
         {
             _loopCounter = 0;
@@ -160,78 +166,69 @@ namespace Mlvl_Maker
                 Thread.Sleep(5);
                 _IsLoopActivated = false;
 
-                
-
                 if(_IsGameTopMost)
                 {
-                    
-                    //Task task = Task.Run(() => 
-                    //{
-                      //  loopThread = Thread.CurrentThread;
-                                          
-                                                
-                        if (_selectedVocation == Enums.Vocation.Magical)
+                    if (_selectedVocation == Enums.Vocation.Magical)
+                    {
+                        switch (_selectedPotion)
                         {
-                            switch (_selectedPotion)
-                            {
-                                case Enums.PotionType.UMP:
-                                    KeyboardControl.PressKey(_potionKey);
-                                    _potionsInBackpack--;
-                                    SendValue(Enums.Place.backpack, _potionsInBackpack);
-                                    Thread.Sleep(Randomization.GenerateWait());
-                                    KeyboardControl.PressKey(_firstSpellKey);
-                                    _loopCounter += 5;
-                                    CastSecondSpell();
-                                    Thread.Sleep(Randomization.GenerateWait());                                    
-                                    break;
+                            case Enums.PotionType.UMP:
+                                KeyboardControl.PressKey(_potionKey);
+                                _potionsInBackpack--;
+                                SendValue(Enums.Place.backpack, _potionsInBackpack);
+                                Thread.Sleep(Randomization.GenerateWait());
+                                KeyboardControl.PressKey(_firstSpellKey);
+                                _loopCounter += 5;
+                                CastSecondSpell();
+                                Thread.Sleep(Randomization.GenerateWait());
+                                break;
 
-                                case Enums.PotionType.GMP:
-                                    KeyboardControl.PressKey(_potionKey);
-                                    _potionsInBackpack--;
-                                    SendValue(Enums.Place.backpack, _potionsInBackpack);
-                                    Thread.Sleep(Randomization.GenerateWait());
-                                    KeyboardControl.PressKey(_potionKey);
-                                    _potionsInBackpack--;
-                                    SendValue(Enums.Place.backpack, _potionsInBackpack);
-                                    KeyboardControl.PressKey(_firstSpellKey);
-                                    _loopCounter += 2;
-                                    CastSecondSpell();
-                                    Thread.Sleep(Randomization.GenerateWait());
-                                    
-                                    break;
+                            case Enums.PotionType.GMP:
+                                KeyboardControl.PressKey(_potionKey);
+                                _potionsInBackpack--;
+                                SendValue(Enums.Place.backpack, _potionsInBackpack);
+                                Thread.Sleep(Randomization.GenerateWait());
+                                KeyboardControl.PressKey(_potionKey);
+                                _potionsInBackpack--;
+                                SendValue(Enums.Place.backpack, _potionsInBackpack);
+                                KeyboardControl.PressKey(_firstSpellKey);
+                                _loopCounter += 2;
+                                CastSecondSpell();
+                                Thread.Sleep(Randomization.GenerateWait());
 
-                                case Enums.PotionType.SMP:
-                                    KeyboardControl.PressKey(_potionKey);
-                                    _potionsInBackpack--;
-                                    SendValue(Enums.Place.backpack, _potionsInBackpack);
-                                    Thread.Sleep(Randomization.GenerateWait());
-                                    KeyboardControl.PressKey(_potionKey);
-                                    _potionsInBackpack--;
-                                    SendValue(Enums.Place.backpack, _potionsInBackpack);
-                                    Thread.Sleep(Randomization.GenerateWait());
-                                    KeyboardControl.PressKey(_potionKey);
-                                    _potionsInBackpack--;
-                                    SendValue(Enums.Place.backpack, _potionsInBackpack);
-                                    KeyboardControl.PressKey(_firstSpellKey);
-                                    Thread.Sleep(Randomization.GenerateWait());
-                                    break;
-                            }
+                                break;
+
+                            case Enums.PotionType.SMP:
+                                KeyboardControl.PressKey(_potionKey);
+                                _potionsInBackpack--;
+                                SendValue(Enums.Place.backpack, _potionsInBackpack);
+                                Thread.Sleep(Randomization.GenerateWait());
+                                KeyboardControl.PressKey(_potionKey);
+                                _potionsInBackpack--;
+                                SendValue(Enums.Place.backpack, _potionsInBackpack);
+                                Thread.Sleep(Randomization.GenerateWait());
+                                KeyboardControl.PressKey(_potionKey);
+                                _potionsInBackpack--;
+                                SendValue(Enums.Place.backpack, _potionsInBackpack);
+                                KeyboardControl.PressKey(_firstSpellKey);
+                                Thread.Sleep(Randomization.GenerateWait());
+                                break;
                         }
+                    }
 
-                        else
-                        {
-                            KeyboardControl.PressKey(_potionKey);
-                            _potionsInBackpack--;
-                            SendValue(Enums.Place.backpack, _potionsInBackpack);
-                            Thread.Sleep(Randomization.GenerateWait());
-                            KeyboardControl.PressKey(_potionKey);
-                            _potionsInBackpack--;
-                            SendValue(Enums.Place.backpack, _potionsInBackpack);
-                            KeyboardControl.PressKey(_firstSpellKey);
-                            KeyboardControl.PressKey(_secondSpellKey);
-                            Thread.Sleep(Randomization.GenerateWait());
-                        }
-                   
+                    else
+                    {
+                        KeyboardControl.PressKey(_potionKey);
+                        _potionsInBackpack--;
+                        SendValue(Enums.Place.backpack, _potionsInBackpack);
+                        Thread.Sleep(Randomization.GenerateWait());
+                        KeyboardControl.PressKey(_potionKey);
+                        _potionsInBackpack--;
+                        SendValue(Enums.Place.backpack, _potionsInBackpack);
+                        KeyboardControl.PressKey(_firstSpellKey);
+                        KeyboardControl.PressKey(_secondSpellKey);
+                        Thread.Sleep(Randomization.GenerateWait());
+                    }
                     
                 }
                 

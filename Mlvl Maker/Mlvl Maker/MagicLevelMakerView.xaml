@@ -71,8 +71,59 @@
                     </Setter>
                 </Trigger>
             </Style.Triggers>
-        </Style>        
-        
+        </Style>
+
+        <!-- Style for turn on/off  -->
+        <Style TargetType="ToggleButton" x:Key="Switch">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="165"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Name="border"
+                                BorderThickness="2"
+                                BorderBrush="#FF0097FF"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FFFFDC00"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush  EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="0.79"/>
+                                <GradientStop Color="#FF46FF00" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="False">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush  EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="0.79"/>
+                                <GradientStop Color="Red" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
         <!-- Button style -->
         <Style TargetType="Button">
             <Setter Property="Width" Value="120"/>
@@ -175,7 +226,7 @@
 
 
             <Button x:Name="SetMouseCoordinates" Content="Set coordinates" Grid.Row="1" VerticalAlignment="Top"/>
-            <ToggleButton x:Name="SwitchBot" Content="{Binding Path=switchTextStatus, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Bottom"/>
+            <ToggleButton x:Name="SwitchBot" Style="{StaticResource Switch}" Content="{Binding Path=switchTextStatus, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Bottom"/>
 
         </Grid>
 
