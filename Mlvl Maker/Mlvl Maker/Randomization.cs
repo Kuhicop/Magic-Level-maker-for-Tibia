@@ -22,7 +22,7 @@ namespace Mlvl_Maker
         public static int GenerateWait()
         {
             Random _random = new Random();
-            return _random.Next(1010, 1150);
+            return _random.Next(1010, 1050);
         }
 
 

@@ -32,11 +32,11 @@ namespace Mlvl_Maker
             switch(place)
             {
                 case Enums.Place.backpack:
-                    _potionsInBackpack = _value;
+                    potionsInBackpack = _value;
                     break;
 
                 case Enums.Place.potionStack:
-                    _potionsOutside = _value;
+                    potionsOutside = _value;
                     break;
             }
         }

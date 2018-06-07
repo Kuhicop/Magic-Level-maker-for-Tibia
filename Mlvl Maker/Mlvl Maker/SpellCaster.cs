@@ -150,6 +150,7 @@ namespace Mlvl_Maker
         private void TakeNewStack()
         {
             MouseControl.MoveStack(_placeToDrop, _placeInBackpack);
+            Thread.Sleep(20);
             MouseControl.MoveStack(_placeInBackpack, _placeWithPotions);
         }
 
