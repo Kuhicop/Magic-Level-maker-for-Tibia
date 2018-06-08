@@ -160,8 +160,10 @@ namespace Mlvl_Maker
         private void MakeBurningLoop()
         {
             _loopCounter = 0;
+            SendValue(Enums.Place.backpack, _potionsInBackpack);
+            SendValue(Enums.Place.potionStack, _potionsOutside);
 
-            while(_IsEnabled && PotionsCheck())
+            while (_IsEnabled && PotionsCheck())
             {
                  
                 if(_IsGameTopMost)
